@@ -41,5 +41,9 @@ DISTFILES += \
     qml/pages/Article.qml \
     qml/pages/Categories.qml \
     qml/pages/JSONListModel.qml \
-    qml/pages/jsonpath.js
+    qml/pages/jsonpath.js \
+    qml/pages/Logic.js \
+    qml/pages/ArticlesList.qml
+
+HEADERS +=
 

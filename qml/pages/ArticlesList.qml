@@ -37,7 +37,6 @@ Page {
     id: page
     property string categoryDescription: ""
     property bool isLazyLoading: false
-    property real readedOpacity: 0.6
     property variant readed: []
     ListModel {
         id: settings
@@ -116,10 +115,7 @@ Page {
 
         delegate: ListItem {
             id: listItem
-            opacity: {
-                return Logic.isReaded(model.id) ? readedOpacity : 1
-            }
-
+            opacity: Logic.isReaded(model.id) ? 0.3 : 1
             width: parent.width
             contentHeight: articleTitle.height + articleExcerpt.height+Theme.paddingMedium
             Image {
@@ -193,11 +189,9 @@ Page {
                 }
             }
             onClicked: {
-
-
                 //print(JSON.stringify(articles.model.get(index)))
                 Logic.markReaded(articles.model.get(index).id)
-                listItem.opacity = readedOpacity
+                listItem.opacity = 0.3
                 var data = {
                     articleID: articles.model.get(index).id,
                     articleTitle: articles.model.get(index).title,

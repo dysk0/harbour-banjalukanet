@@ -34,31 +34,42 @@ import Sailfish.Silica 1.0
 
 Page {
     id: page
-    property string articleTitle: "Loading..."
+    property string articleTitle: ""
     property string articleDate: ""
-    property string excerpt: "Loading..."
-    property string articleContent: "Loading..."
+    property string articleExcerpt: ""
+    property string articleContent: ""
     property string image: ""
     property int articleID
     property int imageW
     property int imageH
     property string date: ""
+
+
+
+
     onStatusChanged: {
+
         if (status === PageStatus.Active) {
             var xmlHttp = new XMLHttpRequest();
             xmlHttp.onreadystatechange = function() {
                 if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
                     try {
                         var json = JSON.parse(xmlHttp.responseText);
-                        var textA = json.post.content;
-                        //print(textA)
-                        var start = textA.indexOf('<span id="more-'+articleID+'"></span></p>')+('<span id="more-'+articleID+'"></span></p>').length;
-                        var end = textA.indexOf('<div class="sharedadd');
+                        var originalContent = json.post.content;
+                        String.prototype.replaceAll = function(search, replacement) {
+                            var target = this;
+                            return target.replace(new RegExp(search, 'g'), replacement);
+                        };
+                        var start = originalContent.indexOf('<span id="more-'+articleID+'"></span></p>')+('<span id="more-'+articleID+'"></span></p>').length;
+                        var end = originalContent.indexOf('<div class="sharedadd');
                         if (end > 0)
-                            textA = textA.substring(start, end);
-                        textA = textA.replace("\n", "").replace("</p>", "").replace("\"", "").replace("<img ", '<img width="100%"')
-                        textA = textA.replace("<p>", "\n\n")
-                        articleContent = textA.trim();
+                            originalContent = originalContent.substring(start, end);
+                        originalContent = originalContent.replaceAll("\n\n", "\n").replaceAll("</p>", "").replaceAll("\"", "").replaceAll("height=", 'w--th=').replaceAll("width=", 'w--th=').replaceAll("<img ", '<img width="'+(parent.width-2*Theme.paddingLarge)+'"')
+
+                        var stripTargetAttr = new RegExp("(<a[^>]+?)target\\s*=\\s*(?:\"|')[^\"']*(?:\"|')", "gi");
+                        var tmpContent = originalContent;
+
+                        articleContent = originalContent.trim();
                     } catch(e) {
                         console.log(e)
                         console.log(" ######## CATEGORIES JSON ERROR ######## ");
@@ -77,41 +88,69 @@ Page {
         contentHeight: column.height
         anchors.fill: parent
         VerticalScrollDecorator {}
+
         Column {
             spacing: Theme.paddingLarge
             id: column
             width: parent.width
-            Image {
-                id: myImage
+
+            Item {
                 width: parent.width
                 height: parent.width/imageW *imageH
-                source: image
-                BusyIndicator {
-                    size: BusyIndicatorSize.Small
-                    anchors.centerIn: myImage
-                    running: myImage.status != Image.Ready
+
+
+
+
+                Image {
+                    id: myImage
+                    width: parent.width
+                    height: parent.height
+                    source: image
+                    fillMode: Image.PreserveAspectCrop
+                    //width: implicitWidth * 2
+                    //height: implicitHeight * 2
+                    BusyIndicator {
+                        size: BusyIndicatorSize.Large
+                        anchors.centerIn: myImage
+                        running: myImage.status != Image.Ready
+                    }
+                    NumberAnimation on opacity {
+                        id: animateImage
+                        from: 0
+                        to: 1
+                        duration: 1200
+                    }
+
+                    onStatusChanged: if (myImage.status == Image.Ready) {
+                                         animateImage.start()
+                                     }
                 }
-            }
-            Label {
-                text:  new Date(articleDate).toLocaleDateString(Qt.locale(), Locale.LongFormat)
-                font.pixelSize: Theme.fontSizeExtraSmall
-                color: Theme.secondaryColor
-                textFormat: Text.StyledText
-                wrapMode: Text.WordWrap
-                anchors {
-                    left: parent.left
-                    right: parent.right
-                    leftMargin: Theme.paddingLarge
-                    rightMargin: Theme.paddingLarge
-                    bottomMargin: 0
-                    topMargin: 0
+
+                Label {
+                    id: lblDate
+                    text:  new Date(articleDate).toLocaleDateString(Qt.locale(), Locale.LongFormat)
+                    font.pixelSize: Theme.fontSizeExtraSmall
+                    color: Theme.highlightColor
+                    textFormat: Text.StyledText
+                    wrapMode: Text.WordWrap
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                        bottom: parent.bottom
+                        leftMargin: Theme.paddingLarge
+                        rightMargin: Theme.paddingLarge
+                        bottomMargin: Theme.paddingLarge
+                        topMargin: 0
+                    }
                 }
+
+
             }
 
             Label {
                 text: articleTitle
                 font.pixelSize: Theme.fontSizeLarge
-                color: Theme.primaryColor
+                color: Theme.highlightColor
                 textFormat: Text.StyledText
                 wrapMode: Text.WordWrap
                 font.bold: true
@@ -126,9 +165,9 @@ Page {
             }
 
             Label {
-                text: excerpt.replace("<p>", "").replace("</p>", "").replace("\"", "")
+                text: articleExcerpt.replace("<p>", "").replace("</p>", "").replace("\"", "")
                 font.pixelSize: Theme.fontSizeSmall
-                color: Theme.primaryColor
+                color: Theme.secondaryHighlightColor
                 textFormat: Text.StyledText
                 wrapMode: Text.WordWrap
                 font.bold: true
@@ -141,12 +180,22 @@ Page {
                 }
             }
 
+            BusyIndicator {
+                id: busyIndicator
+                x: parent.width/2-busyIndicator.width/2
+                size: BusyIndicatorSize.Small
+                running: articleContent === ""
+                visible: articleContent  === ""
+                horizontalAlignment: Qt.AlignHCenter
+            }
             Label {
-                text: articleContent
+                readonly property string _linkStyle: "<style>a:link { color: " + Theme.primaryColor + "; } h1, h2, h3, h4 { color: " + Theme.highlightColor + "; } img { margin: "+Theme.paddingLarge+" 0}</style>"
+                textFormat: Text.RichText
+                text: _linkStyle + articleContent;
                 font.pixelSize: Theme.fontSizeSmall
-                color: Theme.primaryColor
-                textFormat: Text.StyledText
+                color: Theme.secondaryColor
                 wrapMode: Text.WordWrap
+                opacity: 0
                 anchors {
                     left: parent.left
                     right: parent.right
@@ -154,6 +203,15 @@ Page {
                     rightMargin: Theme.paddingLarge
                     bottomMargin: Theme.paddingLarge
                 }
+                NumberAnimation on opacity {
+                    id: textOpacity
+                    from: 0
+                    to: 1
+                    duration: 2200
+                }
+                onTextChanged: if (articleContent !== "") {
+                                   textOpacity.start()
+                               }
             }
         }
     }

@@ -2,6 +2,13 @@
 <!DOCTYPE TS>
 <TS version="2.1">
 <context>
+    <name>ArticlesList</name>
+    <message>
+        <source>banjaluka.net</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Categories</name>
     <message>
         <source>Kategorije</source>
