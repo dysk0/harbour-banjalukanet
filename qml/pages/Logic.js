@@ -19,7 +19,7 @@ function initialize() {
         for (var i = 0; i < rs.rows.length; i++) {
             //var json = JSON.parse(rs.rows.item(i).value);
             console.log("READED in DB: "+rs.rows.item(i).value)
-            if ( rs.rows.item(i).key === "readed")
+            if ( rs.rows.item(i).key === "readed" && rs.rows.item(i).value !== null)
                 readedItems = rs.rows.item(i).value.split(",")
         }
     });
@@ -28,6 +28,9 @@ function initialize() {
 
 function getReaded() {
     return readedItems;
+}
+function clearReaded() {
+    readedItems = [];
 }
 function isReaded(id) {
     if (readedItems.indexOf(id+"") !== -1){

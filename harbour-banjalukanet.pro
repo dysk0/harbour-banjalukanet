@@ -43,7 +43,8 @@ DISTFILES += \
     qml/pages/JSONListModel.qml \
     qml/pages/jsonpath.js \
     qml/pages/Logic.js \
-    qml/pages/ArticlesList.qml
+    qml/pages/ArticlesList.qml\
+    qml/pages/SharePage.qml
 
 HEADERS +=
 

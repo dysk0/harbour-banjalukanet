@@ -3,20 +3,33 @@
 <TS version="2.1">
 <context>
     <name></name>
-    <message id="sailfish_browser-he-share_link">
+    <message id="Share">
+        <location filename="../qml/pages/SharePage.qml" line="17"/>
         <source>Share link</source>
-        <extracomment>List header for link sharing method list</extracomment>
+        <extracomment>&quot;List header for link sharing method list&quot;</extracomment>
         <translation type="unfinished"></translation>
     </message>
-    <message id="sailfish_browser-la-no_accounts">
-        <source>No sharing accounts available. You can add accounts in settings</source>
-        <extracomment>Empty state for share link page</extracomment>
+    <message id="no-accounts">
+        <location filename="../qml/pages/SharePage.qml" line="30"/>
+        <source>No sharing accounts available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="no-accounts-hint">
+        <location filename="../qml/pages/SharePage.qml" line="32"/>
+        <source>You can add accounts in settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="banjaluka.net">
+        <location filename="../qml/pages/FirstPage.qml" line="125"/>
+        <source></source>
+        <extracomment>header title</extracomment>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ArticlesList</name>
     <message>
+        <location filename="../qml/pages/ArticlesList.qml" line="96"/>
         <source>banjaluka.net</source>
         <translation type="unfinished"></translation>
     </message>
@@ -24,6 +37,7 @@
 <context>
     <name>Categories</name>
     <message>
+        <location filename="../qml/pages/Categories.qml" line="49"/>
         <source>Kategorije</source>
         <translation type="unfinished"></translation>
     </message>
@@ -31,13 +45,7 @@
 <context>
     <name>CoverPage</name>
     <message>
-        <source>banjaluka.net</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>FirstPage</name>
-    <message>
+        <location filename="../qml/cover/CoverPage.qml" line="47"/>
         <source>banjaluka.net</source>
         <translation type="unfinished"></translation>
     </message>

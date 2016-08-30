@@ -12,9 +12,9 @@ Page {
         id: shareMethodList
         anchors.fill: parent
         header: PageHeader {
-            //: List header for link sharing method list
+            //: "List header for link sharing method list"
             //% "Share link"
-            title: qsTrId("sailfish_browser-he-share_link")
+            title: qsTrId("Share")
         }
         filter: "text/x-url"
         content: {
@@ -26,9 +26,10 @@ Page {
         ViewPlaceholder {
             enabled: shareMethodList.model.count === 0
 
-            //: Empty state for share link page
-            //% "No sharing accounts available. You can add accounts in settings"
-            text: qsTrId("sailfish_browser-la-no_accounts")
+            //% "No sharing accounts available"
+            text: qsTrId("no-accounts")
+            //% "You can add accounts in settings"
+            hintText: qsTrId("no-accounts-hint")
         }
     }
 }

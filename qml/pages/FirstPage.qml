@@ -93,9 +93,36 @@ Page {
         visible: articles.count !== 0
         width: parent.width
         anchors.fill: parent
+        PullDownMenu {
+            id: pullDownMenu
+            MenuItem {
+                text: "Mark all unread"
+
+                onClicked: {
+                    Logic.clearReaded();
+                    articles.model.clear()
+                    settings.setProperty(0, "refresh", false);
+                    settings.setProperty(0, "page", 1);
+                    updateData();
+                }
+            }
+            MenuItem {
+                //: Pull menu item for list reload
+                //% Refresh
+                text: "Reload"
+                onClicked: {
+                    articles.model.clear()
+                    settings.setProperty(0, "refresh", false);
+                    settings.setProperty(0, "page", 1);
+                    updateData();
+                }
+            }
+        }
         header: PageHeader {
-            title: qsTr("banjaluka.net")
-            description: categoryDescription
+            title: categoryDescription
+            //: header title
+            //% banjaluka.net
+            description: qsTrId("banjaluka.net")
         }
         JSONListModel {
             id: articles
@@ -252,10 +279,7 @@ Page {
     function getNextData(){
         if (!isLazyLoading) {
             var _page = settings.get(0).page;
-            console.log(_page);
             settings.setProperty(0, "page", _page+1);
-            _page = settings.get(0).page;
-            console.log(_page);
             updateData();
             isLazyLoading = true
             myLazyLoadingTimer.start()
