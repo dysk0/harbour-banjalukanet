@@ -69,7 +69,7 @@ Page {
                         var stripTargetAttr = new RegExp("(<a[^>]+?)target\\s*=\\s*(?:\"|')[^\"']*(?:\"|')", "gi");
                         var tmpContent = originalContent;
 
-                        pageStack.pushAttached(Qt.resolvedUrl("SharePage.qml"), {"link": json.post.url, linkTitle: json.post.title})
+                       //  pageStack.pushAttached(Qt.resolvedUrl("SharePage.qml"), {"link": json.post.url, linkTitle: json.post.title})
 
                         articleContent = originalContent.trim();
                     } catch(e) {
