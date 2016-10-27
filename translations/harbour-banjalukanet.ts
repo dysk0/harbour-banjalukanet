@@ -3,22 +3,6 @@
 <TS version="2.1">
 <context>
     <name></name>
-    <message id="Share">
-        <location filename="../qml/pages/SharePage.qml" line="17"/>
-        <source>Share link</source>
-        <extracomment>&quot;List header for link sharing method list&quot;</extracomment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message id="no-accounts">
-        <location filename="../qml/pages/SharePage.qml" line="30"/>
-        <source>No sharing accounts available</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message id="no-accounts-hint">
-        <location filename="../qml/pages/SharePage.qml" line="32"/>
-        <source>You can add accounts in settings</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message id="banjaluka.net">
         <location filename="../qml/pages/FirstPage.qml" line="125"/>
         <source></source>

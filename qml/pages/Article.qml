@@ -188,7 +188,7 @@ Page {
                 size: BusyIndicatorSize.Small
                 running: articleContent === ""
                 visible: articleContent  === ""
-                horizontalAlignment: Qt.AlignHCenter
+                //horizontalAlignment: Qt.AlignHCenter
             }
             Label {
                 readonly property string _linkStyle: "<style>a:link { color: " + Theme.primaryColor + "; } h1, h2, h3, h4 { color: " + Theme.highlightColor + "; } img { margin: "+Theme.paddingLarge+" 0}</style>"
