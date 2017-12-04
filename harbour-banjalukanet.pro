@@ -19,7 +19,6 @@ SOURCES += src/harbour-banjalukanet.cpp
 OTHER_FILES += qml/harbour-banjalukanet.qml \
     qml/cover/CoverPage.qml \
     qml/pages/FirstPage.qml \
-    rpm/harbour-banjalukanet.changes.in \
     rpm/harbour-banjalukanet.spec \
     rpm/harbour-banjalukanet.yaml \
     translations/*.ts \
@@ -44,7 +43,8 @@ DISTFILES += \
     qml/pages/jsonpath.js \
     qml/pages/Logic.js \
     qml/pages/ArticlesList.qml\
-    qml/pages/SharePage.qml
+    qml/pages/SharePage.qml \
+    rpm/harbour-banjalukanet.changes
 
 HEADERS +=
 

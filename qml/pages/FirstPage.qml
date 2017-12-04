@@ -159,7 +159,7 @@ Page {
                 }
                 width: Theme.itemSizeMedium
                 height: Theme.itemSizeMedium
-                source: model.thumbnail_images.thumbnail.url
+                source: model.thumbnail_images.medium_large.url
                 BusyIndicator {
                     size: BusyIndicatorSize.Small
                     anchors.centerIn: icon
@@ -230,9 +230,9 @@ Page {
                     articleTitle: articles.model.get(index).title,
                     articleExcerpt: articles.model.get(index).excerpt,
                     articleDate: articles.model.get(index).date,
-                    image: articles.model.get(index).thumbnail_images.full.url,
-                    imageW: articles.model.get(index).thumbnail_images.full.width,
-                    imageH: articles.model.get(index).thumbnail_images.full.height
+                    image: articles.model.get(index).thumbnail_images.medium_large.url,
+                    imageW: articles.model.get(index).thumbnail_images.medium_large.width,
+                    imageH: articles.model.get(index).thumbnail_images.medium_large.height
                 }
                 pageStack.push(Qt.resolvedUrl("Article.qml"), data)
 
